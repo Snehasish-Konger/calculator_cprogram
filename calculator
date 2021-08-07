@@ -1,0 +1,388 @@
+#include<stdio.h>
+/* stdio.h - it is known to contain the input and output operations like "printf" or "scanf". ".h" extension means the header file. */
+#include<math.h>
+/*math.h - it is a header file in the standard library of the C programming language designed for basic mathematical operations. */
+#include<stdlib.h>
+/* stdlib.h - is the header of the general purpose standard library of C programming language which includes functions involving memory allocation, process control, conversions and others. */
+
+long double addition ();
+void subtraction ();
+long double multiplication ();
+void division ();                               
+void modulus ();
+long double power ();
+int factorial ();
+int **matrix_sum();
+int **matrix_multiply();
+float squareroot();
+long double cubicRoot();
+long double diff();
+void calculator_operations ();
+
+/* main () - It is the function from where the program starts getting executed. In this function “choice_operation” of char type is declared. Then the function calculator_operation () is called. Then, through scanf () user choice for the case label is accepted which is stored in “choice_operation” variable. Finally, the switch is executed. */
+int main ()
+{
+    char choice_operation;
+    calculator_operations ();       
+    scanf ("%c", &choice_operation);
+    switch(choice_operation)
+        {
+            case '+':; long double add;
+                       add= addition();
+                       printf("Total: %Lf",add);
+                       break;
+
+            case '-':; long double first,second,third;
+                       subtraction(&first,&second,&third) ;
+                       printf("Subtraction of %Lf and %Lf is: %Lf\n\n",first,second,third);
+                       break;
+
+            case '*':; long double mul;
+                       mul= multiplication();
+                       printf("Multiplication: %Lf",mul);
+                       break;
+
+            case '/':; long double fir,sec,thi;
+                       division(&fir,&sec,&thi) ;
+                       printf("Division of %Lf and %Lf is: %Lf\n\n",fir,sec,thi);
+                       break;
+
+            case '?':; int ff,tt,ss;
+                       modulus(&ff,&ss,&tt) ;
+                       printf("Modulus of %d and %d is: %d\n\n",ff,ss,tt);
+                       break;
+
+            case '!':;int fact=factorial ();
+                      printf ("Factorial of entered number is: %d\n", fact);
+                      break;
+
+            case '^':;long double p=power();
+                      printf("power %Lf",p);
+                      break;
+
+            case 'D': calculator_operations ();
+                      break;
+                      
+            case 'd': calculator_operations ();
+                      break;
+                      
+            case 's':; int x[100][100], y[100][100];
+                       int **a;
+                       int i,j,m,n;
+                       printf("Enter the number of rows and columns of matrix\n"); 
+                       scanf("%d%d", &m, &n);
+ 
+                       printf("Enter the matrix1: \n");
+                       for(i = 0; i < m; i++)
+                          {
+                              for(j = 0; j < n; j++)
+                                 {
+                                   scanf("%d",&x[i][j]);
+                                 }
+                          }
+                       printf("Enter the matrix2: \n");
+                       for(i = 0; i < m; i++)
+                          {
+                             for(j = 0; j < n; j++)
+                                {
+                                     scanf("%d",&y[i][j]);
+                                } 
+                          }
+                        a = matrix_sum(x,y); 
+                        printf("The sum of the matrix is: \n");
+                        for(i = 0; i < m; i++)
+                          {
+                             for(j = 0; j < n; j++)
+                                {
+                                   printf("%d",a[i][j]);
+                                   printf("\t");
+                                }
+                            printf("\n");
+                           }
+                        break;
+            
+            case 'm':;  int e[100][100], f[100][100];
+                        int **b;
+                        int ii,jj,mm,nn;
+                        printf("Enter the number of rows and columns of matrix\n"); 
+                        scanf("%d%d", &m, &n);
+                        printf("Enter the matrix1: \n");
+                        for(ii = 0; ii < m; ii++)
+                             {
+                                for(jj = 0; jj < n; jj++)
+                                  {
+                                       scanf("%d",&e[ii][jj]);
+                                  }
+                             }
+                        printf("Enter the matrix2: \n");
+                        for(ii = 0; ii < m; ii++)
+                             {
+                                for(jj = 0; jj < n; jj++)
+                                      {
+                                           scanf("%d",&f[ii][jj]);
+                                      }
+                             }
+                        b = matrix_multiply(e,f); 
+                        printf("The sum of the matrix is: \n");
+                        for(ii = 0; ii < m; ii++)
+                              {
+                                   for(jj = 0; jj < n; jj++)
+                                     {
+                                        printf("%d",b[ii][jj]);
+                                        printf("\t");
+                                     }
+                                    printf("\n");
+                                }
+                        break;
+            
+            case 'r':;  int number;
+                        float squrt;
+                        printf("Enter the Number: \n");
+                        scanf("%d", &number);
+                        squrt=squareroot(number);
+                        printf("The square root of %d if %f",number,squrt);
+                        break;
+            
+            case 'c':;  long double nnn,aaa;
+	                    printf("Enter the Number\n");
+	                    scanf("%Lf",&nnn);
+	                    aaa=cubicRoot(nnn);
+	                    printf("Cubic root of %Lf is %Lf\n",nnn, aaa); 
+                        break;
+
+            case 'Q': exit (0);
+                      break;
+                      
+            case 'q': exit (0);
+                      break;
+
+            default:
+               { 
+                printf ("Please enter valid choice\n");
+                calculator_operations ();
+               }
+        }
+}
+
+/* calculator_operations () - In this function through printf () all the different type of operations are printed along with the symbol (case labels) which the user can press to enter the respective cases. */
+void calculator_operations ()
+{
+    printf("___CALCULATOR__\n");
+    printf ("To Quit press 'Q' or 'q'\n");
+    printf ("To Display press 'D' or'd'\n");
+    printf ("Enter + symbol for Addition \n");
+    printf ("Enter - symbol for Subtraction \n");
+    printf ("Enter * symbol for Multiplication \n");
+    printf ("Enter / symbol for Division \n");
+    printf ("Enter? symbol for Modulus\n");
+    printf ("Enter ^ symbol for Power \n");
+    printf ("Enter! symbol for Factorial \n");
+    printf ("Enter s for Matrix Sum \n");
+    printf ("Enter m for Matrix Multiplication \n");
+    printf ("Enter r for Square Root \n");
+    printf ("Enter c for Cube Root \n");
+}
+
+/* addition () - variable “n”, “i” of int type is declared ,"total->0","number" of long double type is declared and a pointer variable "* ptr" is declared of long double type. Then, the user is asked to enter the number of operands they want to add and dynamically space is created .Using the for loop the operands are accepted one by one and again using the for loop the sum is calculated one by one of each element in the array and is stored in "total" .The result stored in “total” is returned. */
+long double addition ()
+{
+    long double* ptr;
+    int n, i;
+    long double total=0, number;
+    printf ("\nEnter the number of elements you want to add:");
+    scanf ("%d", &n);
+    ptr = (long double*)malloc(n * sizeof(long double));
+    if (ptr == NULL) 
+    {
+        printf("Memory not allocated.\n");
+        exit(0);
+    }
+    printf("Enter the numbers: \n");
+    for (i=0;i<n;i++) 
+    {
+        printf("Enter Number %d:",i+1);
+        scanf("%Lf",&ptr[i]);
+    }
+   for (i=0; i<n; i++)
+    {
+        total=total+ptr[i];
+    }
+    return total;
+}
+
+/*the address of "a", "b", "c" is taken.Then the numbers are  accepted from the user and stored in the addresses, then the subtraction is calculated and the result stored in the address of “c” */
+void subtraction (long double* a,long double* b,long double* c)
+{ 
+    printf("Enter the two numbers:\n");
+    scanf("%Lf",&(*a));
+    scanf("%Lf",&(*b));
+    *c = *a - *b; 
+}
+
+/*multiplication () - variable “n”, “i” of int type is declared ,"mul->1","number" of long double type is declared and a pointer variable "* ptr" is declared of long double type. Then, the user is asked to enter the number of operands they want to multiply and dynamically space is created .Using the for loop the operands are accepted one by one and again using the for loop the multiplication is done one by one of each element in the array and is stored in "mul" .The result stored in “mull” is returned */
+long double multiplication ()
+{
+    long double* ptr;
+    int n, i;
+    long double mul=1, number;
+    printf ("\nEnter the number of elements you want to multiply:\n");
+    scanf ("%d", &n);
+    ptr = (long double*)malloc(n * sizeof(long double));
+    if (ptr == NULL) 
+    {
+        printf("Memory not allocated.\n");
+        exit(0);
+    }
+    printf("Enter the numbers: \n");
+    for (i=0;i<n;i++) 
+    {
+        printf("Enter Number %d:",i+1);
+        scanf("%Lf",&ptr[i]);
+    }
+   for (i=0; i<n; i++)
+    {
+        mul=mul*ptr[i];
+    }
+    return mul;
+}
+/* division () - the address of "fir", "sec", "thi" is taken.Then the numbers are  accepted from the user and stored in the addresses, then the division is calculated and the result is stored in the address of “thi” */
+void division (long double* fir,long double* sec,long double* thi)
+{ 
+    printf("Enter the two numbers:\n");
+    scanf("%Lf",&(*fir));   
+    scanf("%Lf",&(*sec));
+    *thi = *fir / *sec; 
+}
+
+/*modulus () - the address of "ff", "ss", "tt" is taken.Then the numbers are  accepted from the user and stored in the addresses, then the modulus is calculated and the result is stored in the address of “tt”  */
+void modulus (int* ff,int* ss,int* tt)
+{ 
+    printf("Enter the two numbers:\n");
+    scanf("%d",&(*ff));   
+    scanf("%d",&(*ss));
+    *tt = *ff % *ss; 
+}
+
+/* power () - variable “a”, “num”, “p” of long double type is declared. Then, the user is asked for the two operands (first the base which is stored in “a” and second the exponent which is stored in “num”). Then we run a for loop in which a is getting multiplied to itself as long as the loop runs. Finally, the result is returned*/
+long double power ()
+{
+    long double a, num, p=1;
+    printf ("\nEnter two numbers to find the power \n");
+    printf ("number: ");
+    scanf ("%Lff", &a);
+    printf ("power: ");
+    scanf ("%Lf", &num);
+    for(int i=0;i<num;i++)
+    {
+        p*=a;
+    }
+    return p;
+}
+/* factorial () - variable “i”, “fact->1”, “num” of int type is declared. Next the number whose factorial is to be done is accepted. Then with a if statement it is checked whether it is a negative number or not and if it turns out to be a negative number the program terminates with a message. Then using a for loop which runs from 1 to num the factorial is calculated and stored in “fact”. Finally, the result is returned. */
+int factorial ()
+{
+    int i, fact=1, num;
+    printf ("Enter a number to find factorial:\n");
+    scanf ("%d", &num);
+   if (num<0)
+    {
+        printf ("You need to enter a positive number\n");
+        return 0;
+    }
+    else
+    {
+     for (i=1; i<=num; i++)
+     fact=fact*i;
+     return fact;
+    }
+}
+
+
+/*int **matrix_sum() - "i","j" of type int is declared. "**matrix3" is an integer pointer to another pointer variable. size of "matrix3" is dynamically allocated. For loop is run from 1 to 100 in which size of row is allocated dynamically. Then the sum operation is done through loops and the result is returned*/
+int **matrix_sum(int matrix1[][100], int matrix2[][100])
+{
+    int i, j;
+    int **matrix3;
+    matrix3 = malloc(sizeof(int*) * 100);
+     
+    for(i = 0; i <100; i++) 
+    {
+        matrix3[i] = malloc(sizeof(int*) * 100);
+    }
+ 
+    for(i = 0; i < 100; i++)
+    {
+        for(j = 0; j < 100; j++)
+        {
+            matrix3[i][j] = matrix1[i][j] + matrix2[i][j];
+        }
+    }
+    return matrix3;
+}
+
+/*int **matrix_multiply() - "i","j","c","d","k","sum->0" of type int is declared. "**multiply" is an integer pointer to another pointer variable. size of "multiply" is dynamically allocated. For loop is run from 1 to 100 in which size of row is allocated dynamically. Then the multiplication operation is done through loops and the result is returned*/
+int **matrix_multiply(int matrix1[][100], int matrix2[][100])
+{
+    int i,j,c,d,k,sum=0;
+    int **multiply;
+    multiply = malloc(sizeof(int*) * 100);
+     
+    for(i = 0; i <100; i++) 
+    {
+        multiply[i] = malloc(sizeof(int*) * 100);
+    }
+    for (c = 0; c < 100; c++)
+      {
+        for (d = 0; d < 100; d++)
+          {
+             for (k = 0; k < 100; k++)
+               {
+                  sum = sum + matrix1[c][k]*matrix2[k][d];
+               }
+            multiply[c][d] = sum;
+            sum = 0;
+          }
+      }
+  return multiply;
+}
+
+/*long double diff() - this function returns "(n-(mid*mid*mid))" if "n" is more than "mid*mid*mid" else it will return "(mid*mid*mid) - n" */
+long double diff(long double n,long double mid)
+{
+	if (n > (mid*mid*mid))
+		return (n-(mid*mid*mid));
+	else
+		return ((mid*mid*mid) - n);
+}
+
+/*long double cubicRoot() - variable "start->0", "end->n", "e->0.0000001" of type long double declared. An infinite running while loop is run.In it "mid" of long double type stores the average of "start" and "end". "error" of long double type stores the retured value of diff() function. If "error" is less than or equal to "e"  "mid" is returned */
+long double cubicRoot(long double n)
+{
+	long double start = 0, end = n;
+	long double e = 0.0000001;
+    while (1)
+	{
+		long double mid = (start + end)/2;
+		long double error = diff(n, mid);
+		if (error <= e)
+			return mid;
+		if ((mid*mid*mid) > n)
+			end = mid;
+		else
+			start = mid;
+	}
+}
+
+/*squareroot()- variable "squrt" of float type and "temp" of int type  declared. "squrt" stores the half of "number". A while loop is placed whick confirms that "squrt" not equal to "temp". Then squrt is returned*/
+float squareroot(int number)
+{
+    float squrt;
+    squrt = number / 2;
+    int temp = 0;
+    while(squrt != temp)
+       {
+         temp = squrt;
+         squrt = ( number/temp + temp) / 2;
+       }
+    return squrt;
+}
